@@ -64,7 +64,9 @@ This is a simple web-based UI for sending SMS messages using Android Debug Bridg
 4.  **Set Delay:** Set the delay in seconds between each message.
 5.  **Enter Coordinates:** Input the X and Y coordinates for the send button.
 6.  **Send Bulk SMS:** Click the "Send Bulk SMS" button to start sending messages.
-7.  **Stop Sending:** Click the "Stop Sending" button to halt the sending process.
+
+!!DO NOT REFRESH THE APP after submitting Bulk SMS Button, It will sometimes re-send the form submission. Working on getting this fixed!!
+In order to reload the UI just delete evertything after your localhost:port/
 
 ## CSV Format
 
@@ -72,8 +74,8 @@ The CSV file should have the following format:
 
 ```csv
 number,message
-+1234567890,Hello from my PC!
-+1987654321,This is a test message.
+1234567890,Hello from my PC!
+1987654321,This is a test message.
 ```
 
 ## Notes
