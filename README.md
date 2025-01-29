@@ -1,4 +1,5 @@
-# SMS Texting UI
+![Header Image](placeholder_header.png)
+# SMS Blazer - Python SMS ADB Bulk Sender with UI
 
 This is a simple web-based UI for sending SMS messages using Android Debug Bridge (ADB). It allows you to upload a CSV file containing phone numbers and messages, and then sends those messages to the specified Android device.
 
@@ -89,6 +90,6 @@ This application is provided as-is, without any warranty. Use it at your own ris
 
 ![Screenshot of the dashboard](placeholder_screenshot.png)
 
-![Header Image](placeholder_header.png)
+
 
 If you enjoyed or made use of this app then feel free to <a href="https://buymeacoffee.com/joshuawilliams">buy me a coffee ☕</a>
