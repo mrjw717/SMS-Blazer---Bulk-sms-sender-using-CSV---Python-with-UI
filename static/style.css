@@ -1,0 +1,289 @@
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background: linear-gradient(to right, #1E1D20, #111012);
+  color: #fff;
+}
+
+h1 {
+  color: #fff;
+  text-align: left;
+}
+
+h1 span:first-child {
+  color: #314E2E;
+}
+
+h1 span:last-child {
+  color: #9D011B;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  background-color: #444;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 45%;
+  min-width: 300px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+  text-align: left;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="number"],
+input[type="time"],
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 69px;
+  background-color: #555;
+  color: #fff;
+}
+
+textarea {
+  height: 100px;
+}
+
+input[type="submit"] {
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 69px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+input[type="submit"][name="upload_csv"] {
+    background-color: #4CAF50;
+}
+
+input[type="submit"][name="load_csv"] {
+    background-color: #172454;
+}
+
+.error {
+  color: #9D011B;
+}
+
+.success {
+  color: #314E2E;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.optional-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.optional-group label {
+  margin-right: 5px;
+}
+
+.optional-group .optional-input {
+  opacity: 0.5;
+  pointer-events: none;
+  width: 50px;
+}
+
+.optional-group .toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.optional-group .toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.optional-group .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 20px;
+}
+
+.optional-group .slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.optional-group input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.optional-group input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+.optional-group input:checked + .slider + .optional-input {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.form-row label {
+    flex: 1;
+    text-align: left;
+    padding-right: 10px;
+}
+
+.form-row input,
+.form-row select {
+    flex: 2;
+}
+
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #ccc;
+    border-radius: 5px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #bbb;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.csv-data-container {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.campaign-data-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.optional-group input[type="number"].optional-input {
+    width: 80px;
+}
+
+.optional-group input[type="number"].optional-input.coordinate-input {
+    width: 100px;
+}

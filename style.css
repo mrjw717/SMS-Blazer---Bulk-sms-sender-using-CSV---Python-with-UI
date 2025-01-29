@@ -1,0 +1,83 @@
+
+body {
+  font-family: sans-serif;
+  margin: 20px;
+  background: linear-gradient(to right, #1E1D20, #111012);
+  color: #fff;
+}
+
+h1 {
+  color: #fff;
+  text-align: left;
+}
+
+h1 span:first-child {
+  color: #314E2E;
+}
+
+h1 span:last-child {
+  color: #9D011B;
+}
+
+.dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  background-color: #444;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 45%;
+  min-width: 300px;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+  text-align: left;
+}
+
+input[type="text"],
+textarea,
+select,
+input[type="number"],
+input[type="time"],
+input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  border-radius: 69px;
+  background-color: #555;
+  color: #fff;
+}
+
+textarea {
+  height: 100px;
+}
+
+input[type="submit"] {
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 69px;
+  display: inline-block;
+}
+
+input[type="submit"][name="upload_csv"] {
+    background-color: #4CAF50;
+}
+
+input[

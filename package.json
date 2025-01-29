@@ -1,0 +1,13 @@
+{
+  "name": "sms-texting-ui",
+  "version": "1.0.0",
+  "description": "SMS Texting UI with Flask and ADB",
+  "main": "index.js",
+  "scripts": {
+    "start": "python app.py"
+  },
+  "dependencies": {
+    "flask": "^0.2.10",
+    "pure-python-adb": "^0.3.0"
+  }
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SMS Blazer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>🔥<span style="color: #4CAF50;">SMS</span> <span style="color: #9D011B;">Blazer</span></h1>
+    <div class="dashboard">
+        <div class="card" style="width: 45%; min-width: 300px; margin: 10px;">
+            <h2>Send SMS</h2>
+            {% if message_sent %}
+                <p class="success">Messages are being sent!</p>
+            {% endif %}
+            {% if error %}
+                <p class="error" style="color:red;">Error: {{ error }}</p>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <label for="device_serial">Select Device:</label>
+                    <select id="device_serial" name="device_serial" required>
+                        {% for device in devices %}
+                            <option value="{{ device }}">{{ device }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-row">
+                    <label for="csv_file">Upload CSV:</label>
+                    <input type="file" id="csv_file" name="csv_file" accept=".csv" style="border-radius: 69px;">
+                </div>
+                <div class="form-row" style="justify-content: flex-end;">
+                    <input type="submit" name="upload_csv" value="Upload CSV" style="width: auto; margin-left: 0; border-radius: 69px; background-color: #4CAF50;">
+                </div>
+                <div class="form-row">
+                    <label for="csv_file_select">Select CSV File:</label>
+                    <select id="csv_file_select" name="csv_file_select">
+                        {% for file in csv_files %}
+                            <option value="{{ file }}" {% if selected_csv_file == file %}selected{% endif %}>{{ file }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-row" style="justify-content: flex-end;">
+                    <input type="submit" name="load_csv" value="Load CSV" style="width: auto; margin-left: 0; border-radius: 69px; background-color: #172454;">
+                </div>
+                
+                {% if csv_data %}
+                    <div class="optional-group">
+                        <label for="delay_toggle" class="checkbox-container">Delay (seconds):
+                            <input type="checkbox" id="delay_toggle" onchange="document.getElementById('delay').disabled = !this.checked; document.getElementById('delay').classList.toggle('optional-input', !this.checked)">
+                            <span class="checkmark"></span>
+                        </label>
+                        <input type="number" id="delay" name="delay" value="1" class="optional-input" disabled>
+                    </div>
+                    <div class="optional-group" style="display: flex; align-items: center;">
+                        <label for="x_coord" style="margin-right: 5px;">X Coordinate:</label>
+                        <input type="number" id="x_coord" name="x_coord" value="666" class="optional-input coordinate-input" size="10" maxlength="6" style="margin-right: 10px;">
+                        <div style="border-left: 1px solid #ddd; height: 20px; margin-right: 10px;"></div>
+                        <label for="y_coord" style="margin-right: 5px;">Y Coordinate:</label>
+                        <input type="number" id="y_coord" name="y_coord" value="1409" class="optional-input coordinate-input" size="10" maxlength="6">
+                    </div>
+                    
+                    <input type="submit" name="send_sms" value="Send Bulk SMS 📫" style="background-color: #5cb85c;">
+                    {% if sending_thread and sending_thread.is_alive() %}
+                        <input type="submit" name="stop_sending" value="Stop Sending" style="background-color: #d9534f; margin-left: 0;">
+                    {% endif %}
+                    <span id="estimated_time" style="margin-left: 10px;">
+                        {% if estimated_time %}
+                            {{ estimated_time }}
+                        {% endif %}
+                    </span>
+                {% endif %}
+            </form>
+        </div>
+        <div class="card" style="width: 45%; min-width: 300px; margin: 10px;">
+            <h2>Uploaded CSV Data</h2>
+            {% if csv_data %}
+                <div class="csv-data-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in csv_data %}
+                                <tr>
+                                    <td>{{ row.get('number', 'N/A') }}</td>
+                                    <td>{{ row.get('message', 'N/A') }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <p>Total Numbers: {{ csv_data | length }}</p>
+            {% else %}
+                <p>No CSV data uploaded yet.</p>
+            {% endif %}
+        </div>
+    
+    {% if campaign_data %}
+        <div class="card" style="width: 45%; min-width: 300px; margin: 10px;">
+            <h2>Previous Campaign Data</h2>
+            <div class="campaign-data-container">
+                
+                    
+                        <strong>Time Submitted:</strong> {{ campaign_data.get('time_submitted', 'N/A') }}<br>
+                        <strong>Delay:</strong> {{ campaign_data.get('delay', 'N/A') }}<br>
+                        
+                        {% if campaign_data.get('log_entries') %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Message</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for entry in campaign_data.get('log_entries') %}
+                                    <tr>
+                                        <td>{{ entry.get('number', 'N/A') }}</td>
+                                        <td>{{ entry.get('message', 'N/A') }}</td>
+                                        <td>{{ entry.get('status', 'N/A') }}</td>
+                                        <td>{{ entry.get('time', 'N/A') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    
+                
+            </div>
+        </div>
+        {% endif %}
+        <div class="card" style="width: 45%; min-width: 300px; margin: 10px;">
+            <h2>Instructions</h2>
+            <p>
+                Uploaded CSV files are stored in the <code>csv_uploads</code> folder.
+            </p>
+            <p>
+                Campaign data (JSON files) are stored in the <code>campaigns</code> folder.
+            </p>
+            <p>
+                The CSV file should have the following format:
+            </p>
+            <pre>
+                number,message
+                +1234567890,Hello from my PC!
+                +1987654321,This is a test message.
+            </pre>
+            <p>
+                This application uses ADB to send SMS messages to your connected Android device.
+            </p>
+            <p>
+                To find the X and Y coordinates for the send button, you can use the "Developer options" on your Android device. Enable "Pointer location" under "Input" to see the coordinates when you tap the screen.
+            </p>
+            <p>
+                If you enjoyed or made use of this app then feel free to <a href="https://buymeacoffee.com/joshuawilliams" style="color: #4CAF50;">buy me a coffee ☕</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const delayInput = document.getElementById('delay');
+            const estimatedTimeSpan = document.getElementById('estimated_time');
+            
+            function updateEstimatedTime() {
+                const delay = parseInt(delayInput.value) || 1;
+                const csvData = {{ csv_data | tojson | safe }};
+                if (csvData) {
+                    const estimatedSeconds = csvData.length * delay;
+                    let estimatedTime = "";
+                    if (estimatedSeconds < 60) {
+                        estimatedTime = `it will take about ${estimatedSeconds} seconds to complete.`;
+                    } else {
+                        const estimatedMinutes = Math.floor(estimatedSeconds / 60);
+                        estimatedTime = `it will take about ${estimatedMinutes} minutes to complete.`;
+                    }
+                    estimatedTimeSpan.textContent = estimatedTime;
+                } else {
+                    estimatedTimeSpan.textContent = "";
+                }
+            }
+            
+            if (delayInput) {
+                delayInput.addEventListener('change', updateEstimatedTime);
+            }
+            
+            updateEstimatedTime();
+        });
+    </script>
+</body>
+</html>
